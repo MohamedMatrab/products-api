@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "sR2K5a/qBbDoJ0Uj2xai1fEraaoXsKpsJXyLOGG4yhm22msaFCrlPitXo9HB1Yp5fOou1XYNWNRJTRqdOUdzMw==",
+  "dgSpecHash": "QeqE+2Nak0E349unY0AVYw9TJiXK3fSIGjhSmiQSIiNkWjH6ougEUhPZaX2Uhru6Lsj4wwUjlm2JUgPv4QPOXw==",
   "success": true,
   "projectFilePath": "C:\\Users\\moham\\OneDrive\\Bureau\\products-api\\Products.Application\\Products.Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\moham\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.11\\microsoft.aspnetcore.cryptography.internal.8.0.11.nupkg.sha512",

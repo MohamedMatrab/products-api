@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "rWyRwhurk+dPwsmSoYHcvmImtJ455b1eO/If0TroXDV6UZ9N7u0zAOa8AZeeuYzFq7omiH0dNJ/LLTk3Ccjb3Q==",
+  "dgSpecHash": "tysROT+y1pUX8gMHrWn0wuVwC53ugviFlbR3B/9y4xeGvkb+eKg/IdlqMyMB6O7kDNOMsNobyeze9hb9bSiDrQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\moham\\OneDrive\\Bureau\\products-api\\Products.Domain\\Products.Domain.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\moham\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.11\\microsoft.aspnetcore.cryptography.internal.8.0.11.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.11\\microsoft.aspnetcore.cryptography.keyderivation.8.0.11.nupkg.sha512",
     "C:\\Users\\moham\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\8.0.11\\microsoft.aspnetcore.identity.entityframeworkcore.8.0.11.nupkg.sha512",
