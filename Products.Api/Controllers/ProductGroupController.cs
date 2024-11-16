@@ -3,21 +3,23 @@ using Products.Domain.Common;
 using Products.Domain.DTOS;
 using Products.Domain.DTOS.Product.Request;
 using Products.Domain.DTOS.Product.Response;
+using Products.Domain.DTOS.ProductGroups.Request;
+using Products.Domain.DTOS.ProductGroups.Response;
 using Products.Domain.Interfaces.IServices;
 
 namespace products_api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductsController(IProductService<int> productService) : ControllerBase
+public class ProductGroupController(IProductGroupService<int> productService) : ControllerBase
 {
-    [HttpGet("get-products")]
-    public async Task<IActionResult> GetProducts(int? pageNumber,int? pageSize,string? sortBy,string? sortOrder,
+    [HttpGet("get-groups")]
+    public async Task<IActionResult> GetGroups(int? pageNumber,int? pageSize,string? sortBy,string? sortOrder,
         CancellationToken cancellationToken)
     {
         try
         {
-            IEnumerable<ProductResponse> list;
+            IEnumerable<GroupResponse> list;
             if (!pageNumber.HasValue)
                 list= await productService.GetList(null,cancellationToken);
             else
@@ -30,7 +32,7 @@ public class ProductsController(IProductService<int> productService) : Controlle
                     Filters = []
                 }, cancellationToken);
             var materializedList = list.ToList();
-            return Ok(new ListResult<ProductResponse>
+            return Ok(new ListResult<GroupResponse>
             {
                 PageNumber = pageNumber ?? 1,
                 ResultsCount = materializedList.Count,
@@ -43,12 +45,12 @@ public class ProductsController(IProductService<int> productService) : Controlle
         }
     }
     
-    [HttpPost("add-product")]
-    public async Task<IActionResult> AddProduct([FromBody]ProductDto dto,CancellationToken cancellationToken)
+    [HttpPost("add-group")]
+    public async Task<IActionResult> Add([FromBody]GroupDto dto,CancellationToken cancellationToken)
     {
         try
         {
-            return Ok(await productService.AddProduct(dto,cancellationToken));
+            return Ok(await productService.Add(dto,cancellationToken));
         }
         catch (Exception e)
         {
@@ -56,12 +58,12 @@ public class ProductsController(IProductService<int> productService) : Controlle
         }
     }
     
-    [HttpPost("edit-product/{id:int}")]
-    public async Task<IActionResult> EditProduct([FromBody]ProductDto dto,int id,CancellationToken cancellationToken)
+    [HttpPost("edit-group/{id:int}")]
+    public async Task<IActionResult> Edit([FromBody]GroupDto dto,int id,CancellationToken cancellationToken)
     {
         try
         {
-            return Ok(await productService.UpdateProduct(dto,id,cancellationToken));
+            return Ok(await productService.Update(dto,id,cancellationToken));
         }
         catch (Exception e)
         {
@@ -69,7 +71,7 @@ public class ProductsController(IProductService<int> productService) : Controlle
         }
     }
     
-    [HttpDelete("delete-products")]
+    [HttpDelete("delete-groups")]
     public async Task<IActionResult> DeleteRange([FromBody]List<int> ids,CancellationToken cancellationToken)
     {
         try

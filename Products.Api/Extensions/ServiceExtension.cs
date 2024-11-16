@@ -11,11 +11,13 @@ public static class ServiceExtension
     {
         #region Services
         services.AddScoped<IProductService<int>, ProductService>();
+        services.AddScoped<IProductGroupService<int>, ProductGroupService>();
 
         #endregion
 
         #region Repositories
         services.AddTransient<IProductRepository, ProductRepository>();
+        services.AddTransient<IGroupsRepository, GroupsRepository>();
 
         #endregion
     }
