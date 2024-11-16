@@ -47,34 +47,30 @@ public class ProductRepository(ApplicationDbContext dbContext) : IProductReposit
         {
             throw new KeyNotFoundException($"Product with ID {key} not found.");
         }
-        dbContext.Products.Remove(existingProduct);
-        await SaveChangesAsync(cancellationToken);
+        try
+        {
+            dbContext.Products.Remove(existingProduct);
+            await SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception e)
+        {
+            dbContext.Entry(existingProduct).State = EntityState.Unchanged;
+            throw new Exception($"Error Delete Product With Key {key}");
+        }
     }
 
-    public async Task<IEnumerable<Product>> GetList(CancellationToken cancellationToken)
+    public async Task<IEnumerable<Product>> GetList(CancellationToken cancellationToken=default)
     {
         var list = await dbContext.Products.ToListAsync(cancellationToken);
         return list;
     }
-
-    public async Task<IEnumerable<Product>> PaginatedList(int pageNumber, int pageSize, CancellationToken cancellationToken)
+    
+    public async Task<IEnumerable<Product>> PaginatedList(PaginationParams paginationParams, CancellationToken cancellationToken=default)
     {
-        return await PaginatedList(pageNumber,pageSize,"","asc",[],cancellationToken);
-    }
-
-    public async Task<IEnumerable<Product>> PaginatedList(int pageNumber, int pageSize, string sortBy, CancellationToken cancellationToken)
-    {
-        return await PaginatedList(pageNumber,pageSize,sortBy,"asc",[],cancellationToken);
-    }
-
-    public async Task<IEnumerable<Product>> PaginatedList(int pageNumber, int pageSize, string sortBy, List<ExpressionFilter> filters, CancellationToken cancellationToken)
-    {
-        return await PaginatedList(pageNumber,pageSize,sortBy,"asc",filters,cancellationToken);
-    }
-
-    public async Task<IEnumerable<Product>> PaginatedList(int pageNumber, int pageSize, string sortBy, string sortOrder, List<ExpressionFilter> filters,
-        CancellationToken cancellationToken)
-    {
+        var filters = paginationParams.Filters;
+        var sortBy = paginationParams.SortBy;
+        var sortOrder = paginationParams.SortOrder;
+        
         var query = dbContext.Products.AsNoTracking();
         
         //Filtering
@@ -102,8 +98,8 @@ public class ProductRepository(ApplicationDbContext dbContext) : IProductReposit
         
         // Pagination
         query=  query
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize);
+            .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
+            .Take(paginationParams.PageSize);
         
         return await query.ToListAsync(cancellationToken);
     }

@@ -4,20 +4,22 @@ using Products.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register DbContext
+// Register DbContext with SQL Server connection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDb")));
 
+// Register custom services and mappers
 builder.Services.RegisterService();
 builder.Services.RegisterMapperService();
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Add controllers and API-related services
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -25,5 +27,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthorization(); // Add this line to handle authorization middleware
+
+app.MapControllers();
 
 app.Run();

@@ -10,6 +10,7 @@ public class ProductModelToResponse : IListMapper<Product,ProductResponse>
     {
         return source.Select(e => new ProductResponse
         {
+            Id = e.Id,
             Price = e.Price,
             Description = e.Description,
             Quantity = e.Quantity,

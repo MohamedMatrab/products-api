@@ -10,7 +10,7 @@ public static class ServiceExtension
     public static void RegisterService(this IServiceCollection services)
     {
         #region Services
-        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IProductService<int>, ProductService>();
 
         #endregion
 
