@@ -56,4 +56,30 @@ public class ProductsController(IProductService<int> productService) : Controlle
             return BadRequest(e.Message);
         }
     }
+    
+    [HttpPost("edit-product/{id:int}")]
+    public async Task<IActionResult> EditProduct([FromBody]ProductDto dto,int id,CancellationToken cancellationToken)
+    {
+        try
+        {
+            return Ok(await productService.UpdateProduct(dto,id,cancellationToken));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    
+    [HttpDelete("delete-products")]
+    public async Task<IActionResult> DeleteRange([FromBody]List<int> ids,CancellationToken cancellationToken)
+    {
+        try
+        {
+            return Ok(await productService.DeleteRange(ids,cancellationToken));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }
